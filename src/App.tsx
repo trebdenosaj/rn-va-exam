@@ -1,23 +1,22 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  Text
-} from 'react-native';
+import { SafeAreaView } from 'react-native';
+import { BASE_API_URL } from './config/main';
+import AppNavigation from './navigation/AppNavigation';
+import { ApiService } from './utils/ApiService';
 
 const App: React.FC = () => {
-  return (
-    <SafeAreaView>
-      <Text>Root Directory</Text>
-    </SafeAreaView>
-  );
+
+  ApiService.get({
+    url: `${BASE_API_URL}?q=snaphunt&sort=stars&order=desc`
+  })
+  .then(res=>res.json())
+  .then(res=>alert(JSON.stringify(res)))
+  
+	return (
+		<SafeAreaView>
+			<AppNavigation />
+		</SafeAreaView>
+	);
 };
 
 export default App;
